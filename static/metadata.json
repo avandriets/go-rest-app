@@ -1,0 +1,146 @@
+[
+  {
+    "code": "noId",
+    "name": "ID",
+    "display": true,
+    "filterable": true,
+    "sortable": true,
+    "type": "number",
+    "formatter": "",
+    "link": "",
+    "filterType": "number",
+    "disabled": "true"
+  },
+  {
+    "code": "compounds",
+    "name": "Compounds",
+    "display": true,
+    "filterable": true,
+    "sortable": true,
+    "type": "string",
+    "formatter": "",
+    "link": "",
+    "filterType": "string"
+  },
+  {
+    "code": "image",
+    "name": "Image",
+    "display": true,
+    "filterable": false,
+    "sortable": false,
+    "type": "image",
+    "formatter": "",
+    "link": "",
+    "filterType": ""
+  },
+  {
+    "code": "smiles",
+    "name": "smiles",
+    "display": true,
+    "filterable": true,
+    "sortable": true,
+    "type": "string",
+    "formatter": "",
+    "link": "",
+    "filterType": "string"
+  },
+  {
+    "code": "formular",
+    "name": "Formular",
+    "display": true,
+    "filterable": true,
+    "sortable": true,
+    "type": "string",
+    "formatter": "",
+    "link": "",
+    "filterType": "string"
+  },
+  {
+    "code": "structure_type",
+    "name": "Structure Type",
+    "display": true,
+    "filterable": true,
+    "sortable": true,
+    "type": "string",
+    "formatter": "",
+    "link": "",
+    "filterType": "string"
+  },
+  {
+    "code": "bioactivity_type",
+    "name": "Bioactivity Type",
+    "display": true,
+    "filterable": true,
+    "sortable": true,
+    "type": "string",
+    "formatter": "",
+    "link": "",
+    "filterType": "string"
+  },
+  {
+    "code": "activity",
+    "name": "Activity",
+    "display": true,
+    "filterable": true,
+    "sortable": true,
+    "type": "string",
+    "formatter": "",
+    "link": "",
+    "filterType": "string"
+  },
+  {
+    "code": "year",
+    "name": "Year",
+    "display": true,
+    "filterable": true,
+    "sortable": true,
+    "type": "number",
+    "formatter": "",
+    "link": "",
+    "filterType": "number"
+  },
+  {
+    "code": "volume",
+    "name": "Volume",
+    "display": true,
+    "filterable": true,
+    "sortable": true,
+    "type": "number",
+    "formatter": "",
+    "link": "",
+    "filterType": "number"
+  },
+  {
+    "code": "page",
+    "name": "Page",
+    "display": true,
+    "filterable": true,
+    "sortable": true,
+    "type": "number",
+    "formatter": "",
+    "link": "",
+    "filterType": "number"
+  },
+  {
+    "code": "articleName",
+    "name": "Article Name",
+    "display": true,
+    "filterable": true,
+    "sortable": true,
+    "type": "string",
+    "formatter": "",
+    "link": "",
+    "filterType": "string"
+  },
+  {
+    "code": "articleNo",
+    "name": "Article No",
+    "display": true,
+    "filterable": true,
+    "sortable": true,
+    "type": "number",
+    "formatter": "",
+    "link": "",
+    "filterType": "number"
+  }
+]
