@@ -7,24 +7,36 @@ import (
 	"go-rest-app/model"
 	"log"
 	"net/http"
+
+	"github.com/go-pg/pg"
 )
 import _ "github.com/lib/pq"
 import "database/sql"
 
 func main() {
-
-	db := connectToDatabase()
+	db := connectToPgDataBase()
 	defer db.Close()
 
 	r := mux.NewRouter()
-	r.HandleFunc("/structures", StructuresController).Methods("GET")
+	r.HandleFunc("/structures", StructuresByORM).Methods("GET")
 	r.HandleFunc("/version", VersionController).Methods("GET")
 	r.HandleFunc("/metadata", MetadataController).Methods("GET")
+	r.HandleFunc("/render", RenderStructureController).Methods("GET")
 
 	if err := http.ListenAndServe(":9000", r); err != nil {
 		log.Fatal(err)
 	}
+}
 
+func connectToPgDataBase() *pg.DB {
+	db := pg.Connect(&pg.Options{
+		User:     "nprl",
+		Password: "nprl",
+		Database: "nprl",
+	})
+
+	model.SetPgDataBase(db)
+	return db
 }
 
 func connectToDatabase() *sql.DB {

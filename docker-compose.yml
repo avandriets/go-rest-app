@@ -1,0 +1,44 @@
+version: '3.1'
+
+services:
+    postgres:
+      image: postgres
+      restart: always
+      environment:
+        POSTGRES_USER: test
+        POSTGRES_PASSWORD: test
+        POSTGRES_DATABASE: test
+        POSTGRES_ROOT_PASSWORD: test
+        pgdata: data-pstgresql
+      ports:
+      - "5432:5432"
+      volumes:
+      - data-pstgresql:/data
+      - ./sql:/docker-entrypoint-initdb.d
+
+    keycloak:
+      container_name: 'keycloak-nprl'
+      image: jboss/keycloak:4.5.0.Final
+      restart: always
+      environment:
+        DB_VENDOR: h2
+        KEYCLOAK_USER: admin
+        KEYCLOAK_PASSWORD: admin
+      ports:
+      - '18080:8080'
+      - '18443:8443'
+      volumes:
+      - data-nprl-keycloak:/data
+
+#    go-rest-api:
+#      restart: always
+#      container_name: go-rest-api
+#      image: "docker.go-test.com/go-rest-api:latest"
+#      build:
+#        context: .
+#      ports:
+#      - "9000:9000"
+
+volumes:
+    data-pstgresql:
+    data-nprl-keycloak:

@@ -1,38 +1,32 @@
 package controller
 
 import (
-	"database/sql"
 	"encoding/json"
+	"github.com/go-pg/pg/orm"
 	"go-rest-app/model"
 	"log"
 	"net/http"
 )
 
-type Structure struct {
-	NoID            int            `json:"noId"`
-	Compounds       sql.NullString `json:"compounds"`
-	Smiles          sql.NullString `json:"smiles"`
-	Formular        sql.NullString `json:"formular"`
-	Structure       sql.NullString `json:"structure"`
-	StructureType   sql.NullString `json:"structure_type"`
-	BioactivityType sql.NullString `json:"bioactivity_type"`
-	Activity        sql.NullString `json:"activity"`
-	JournalName     sql.NullString `json:"journalName"`
-	Year            sql.NullInt64  `json:"year"`
-	Volume          sql.NullInt64  `json:"volume"`
-	Page            sql.NullInt64  `json:"page"`
-	ArticleName     sql.NullString `json:"articleName"`
-	ArticleNo       sql.NullInt64  `json:"articleNo"`
-	CreatedAt       sql.NullString `json:"created_at"`
-	UpdatedAt       sql.NullString `json:"updated_at"`
-}
+func StructuresByORM(w http.ResponseWriter, r *http.Request) {
+	var structures []model.Structure
+	encoder := json.NewEncoder(w)
 
-type ContentResponse struct {
-	Structures []Structure `json:"content"`
+	err := model.GetPgDatabase().Model(&structures).
+		Apply(orm.Pagination(r.URL.Query())).Select()
+
+	if err != nil {
+		http.Error(w, err.Error(), 500)
+		return
+	}
+
+	if err := encoder.Encode(&structures); err != nil {
+		log.Printf("HTTP %s", err)
+	}
 }
 
 func StructuresController(w http.ResponseWriter, r *http.Request) {
-	content := ContentResponse{}
+	content := model.ContentResponse{}
 	encoder := json.NewEncoder(w)
 
 	err := queryStructures(&content)
@@ -46,7 +40,7 @@ func StructuresController(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func queryStructures(structures *ContentResponse) error {
+func queryStructures(structures *model.ContentResponse) error {
 	db := model.GetDatabase()
 
 	rows, err := db.Query(`SELECT * FROM nprl.public.structures`)
@@ -57,7 +51,7 @@ func queryStructures(structures *ContentResponse) error {
 
 	defer rows.Close()
 	for rows.Next() {
-		structure := Structure{}
+		structure := model.Structure{}
 		err = rows.Scan(
 			&structure.NoID,
 			&structure.Compounds,
