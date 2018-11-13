@@ -2,6 +2,7 @@ package main
 
 import (
 	. "./controller"
+	"./middleware"
 	"fmt"
 	"github.com/gorilla/mux"
 	"go-rest-app/model"
@@ -22,6 +23,11 @@ func main() {
 	r.HandleFunc("/version", VersionController).Methods("GET")
 	r.HandleFunc("/metadata", MetadataController).Methods("GET")
 	r.HandleFunc("/render", RenderStructureController).Methods("GET")
+
+	amw := middleware.AuthMiddleware{}
+	amw.SetSecureOff()
+
+	r.Use(amw.Middleware)
 
 	if err := http.ListenAndServe(":9000", r); err != nil {
 		log.Fatal(err)

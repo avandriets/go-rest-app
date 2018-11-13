@@ -24,12 +24,13 @@ type Metadata struct {
 
 func MetadataController(w http.ResponseWriter, r *http.Request) {
 	jsonFile, err := os.Open("./static/metadata.json")
-	// if we os.Open returns an error then handle it
+
 	if err != nil {
 		fmt.Println(err)
+		http.Error(w, "Server error cannot get metadata", http.StatusInternalServerError)
 	}
 	fmt.Println("Successfully Opened metadata.json")
-	// defer the closing of our jsonFile so that we can parse it later on
+
 	defer jsonFile.Close()
 
 	byteValue, _ := ioutil.ReadAll(jsonFile)
@@ -41,7 +42,6 @@ func MetadataController(w http.ResponseWriter, r *http.Request) {
 
 	if err := encoder.Encode(&result); err != nil {
 		log.Printf("HTTP %s", err)
+		http.Error(w, "Server error", http.StatusInternalServerError)
 	}
-
-	//fmt.Println(result)
 }

@@ -29,6 +29,7 @@ func RenderStructureController(w http.ResponseWriter, r *http.Request) {
 	contentType := "image/svg+xml"
 
 	if smilesString == "" {
+		http.Error(w, "Cannot find SMILES parameter", http.StatusBadRequest)
 		return
 	}
 
